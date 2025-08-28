@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Dimension by HTML5 UP - One Piece</title>
+    <title>Anime List</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
@@ -9,65 +9,43 @@
     <link rel="stylesheet" href="assets/css/main.css" />
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
-    <!-- CSS aggiuntivo per il video -->
-    <style>
-        .video-wrapper {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* rapporto 16:9 */
-            height: 0;
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-        }
-    </style>
+    
 </head>
 <body class="is-preload">
 
-    <!-- Wrapper -->
-    <div id="wrapper">
+    <header id="header">
+    <div class="logo">
+        <span class="icon fa-gem"></span>
+    </div>
 
-        <!-- Header -->
-        <header id="header">
-            <div class="logo">
-                <span class="icon fa-gem"></span>
-            </div>
-            <div class="content">
-                <div class="inner">
-                    <div class="video-wrapper">
-                        <h2 style="margin-bottom: 15px;">ONE PIECE - EP 1 ITA</h2>
-                        <div class="video-container">
-                            <iframe src="https://drive.google.com/uc?export=preview&id=1VyA8MnQQva6SEeOM1m8kgiqest4mcrSR"
-                                    title="Video One Piece ep 1 ITA"
-                                    frameborder="0"
-                                    allow="autoplay; encrypted-media"
-                                    allowfullscreen>
-                            </iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Intro</a></li>
-                    <li><a href="#work">Work</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </header>
+    <!-- Area centrale con pulsante Anime -->
+    <div class="center-menu">
+        <button id="anime-button">Anime</button>
+        <ul id="anime-list">
+            <li><a href="naruto.html">Naruto</a></li>
+            <li><a href="One Piece.html">One Piece</a></li>
+            <li><a href="attack-on-titan.html">Attack on Titan</a></li>
+            <li><a href="demon-slayer.html">Demon Slayer</a></li>
+            <li><a href="death-note.html">Death Note</a></li>
+        </ul>
+    </div>
 
+    <!-- Navbar in basso -->
+    <nav class="bottom-nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+
+
+        <!-- BG -->
+    <div id="bg"></div>
         <!-- Main -->
         <div id="main">
 
@@ -127,13 +105,12 @@
 
         <!-- Footer -->
         <footer id="footer">
-            <p class="copyright">&copy; BON 2025 <a href="https://html5up.net">HTML5 UP</a>.</p>
+            <p class="copyright">&copy; BON AND  <a href="https://html5up.net">COMPANY</a>.</p>
         </footer>
 
     </div>
 
-    <!-- BG -->
-    <div id="bg"></div>
+    
 
     <!-- Scripts -->
     <script src="assets/js/jquery.min.js"></script>
@@ -142,6 +119,17 @@
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
 
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+  const animeToggle = document.querySelector(".anime-toggle");
+  const parentLi = animeToggle.closest("li");
+
+  animeToggle.addEventListener("click", function(e) {
+    e.preventDefault(); // evita lo scroll in alto con href="#"
+    parentLi.classList.toggle("open"); // aggiunge/toglie la classe open
+  });
+});
+</script>
+
 </body>
 </html>
-

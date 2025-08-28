@@ -1150,20 +1150,13 @@ input, select, textarea {
 		}
 
 		#bg:after {
-			-moz-transform: scale(1.125);
-			-webkit-transform: scale(1.125);
-			-ms-transform: scale(1.125);
-			transform: scale(1.125);
-			-moz-transition: -moz-transform 0.325s ease-in-out, -moz-filter 0.325s ease-in-out;
-			-webkit-transition: -webkit-transform 0.325s ease-in-out, -webkit-filter 0.325s ease-in-out;
-			-ms-transition: -ms-transform 0.325s ease-in-out, -ms-filter 0.325s ease-in-out;
-			transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out;
-			background-image: url("../../images/bg.jpg");
-			background-position: center;
-			background-size: cover;
-			background-repeat: no-repeat;
-			z-index: 1;
-		}
+    background-image: url("../../images/bg.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
 
 		body.is-article-visible #bg:after {
 			-moz-transform: scale(1.0825);
@@ -1703,3 +1696,86 @@ input, select, textarea {
   background: gold;
   color: black;
 }
+
+#bg {
+    background-image: url("../images/anime-collage-1920-x-1080-wallpaper-n380220rsj66jwzu.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* fa sì che stia dietro tutto il contenuto */
+}
+
+/* Area centrale Anime */
+.center-menu {
+    text-align: center;
+    margin: 30px 0;
+}
+
+#anime-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    background-color: 1#000000;
+    color: #fff;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+#anime-button:hover {
+    background-color: #e67e22;
+}
+
+#anime-list {
+    display: none;
+    list-style: none;
+    margin-top: 10px;
+    padding: 0;
+}
+
+#anime-list li {
+    margin: 5px 0;
+}
+
+#anime-list li a {
+    color: #fff;
+    text-decoration: none;
+    background: rgba(0,0,0,0.7);
+    padding: 6px 12px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+#anime-list li a:hover {
+    background: #f39c12;
+}
+
+/* Navbar in basso */
+.bottom-nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 20px 0 0 0;
+    padding: 0;
+    gap: 30px;
+}
+
+.bottom-nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 6px 12px;
+    transition: 0.3s;
+}
+
+.bottom-nav ul li a:hover {
+    background: #c67e0a;
+    border-radius: 4px;
+}
+
+
+

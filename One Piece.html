@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="assets/css/main.css" />
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
-    <!-- CSS aggiuntivo per il video -->
+    <!-- CSS aggiuntivo -->
     <style>
         .video-wrapper {
             max-width: 900px;
@@ -31,6 +31,28 @@
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
+
+        /* 🔹 Sfondo personalizzato con overlay */
+        #bg {
+            background: url("images/one_piece_bg.jpg") center center / cover no-repeat;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2; /* resta dietro a tutto */
+        }
+
+        #bg::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.55); /* overlay nero semi-trasparente */
+            z-index: -1;
+        }
     </style>
 </head>
 <body class="is-preload">
@@ -46,23 +68,17 @@
             <div class="content">
                 <div class="inner">
                     <div class="video-wrapper">
-    <h2 style="margin-bottom: 15px;">ONE PIECE - EP 1 ITA</h2>
-    <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%;">
-  <iframe src="https://drive.google.com/file/d/1VyA8MnQQva6SEeOM1m8kgiqest4mcrSR/preview" 
-          style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;" 
-          allow="autoplay" 
-          allowfullscreen>
-  </iframe>
-</div>
+                        <h2 style="margin-bottom: 15px;">ONE PIECE - EP 1 ITA</h2>
+                        <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%;">
+                            <iframe src="https://drive.google.com/file/d/1VyA8MnQQva6SEeOM1m8kgiqest4mcrSR/preview" 
+                                    style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;" 
+                                    allow="autoplay" 
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
 
-
-    <!-- Pulsante per aprire direttamente il player senza passare da Drive -->
-    <a href="https://drive.google.com/uc?export=preview&id=1VyA8MnQQva6SEeOM1m8kgiqest4mcrSR"
-       target="_blank"
-       style="display:inline-block; margin-top:15px; padding:10px 20px; background:#ff4444; color:white; border-radius:8px; text-decoration:none; font-weight:bold;">
-       Guarda Episodio
-    </a>
-</div>
+                        
+                    </div>
                 </div>
             </div>
             <nav>
@@ -76,10 +92,10 @@
         </header>
 
         <!-- BG -->
-    <div id="bg"></div>
+        <div id="bg"></div>
+
         <!-- Main -->
         <div id="main">
-
             <!-- Intro -->
             <article id="intro">
                 <h2 class="major">Intro</h2>
@@ -131,17 +147,13 @@
                     <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
                 </ul>
             </article>
-
         </div>
 
         <!-- Footer -->
         <footer id="footer">
-            <p class="copyright">&copy; BON AND    <a href="https://html5up.net">COMPANY</a>.</p>
+            <p class="copyright">&copy; BON AND <a href="https://html5up.net">COMPANY</a>.</p>
         </footer>
-
     </div>
-
-    
 
     <!-- Scripts -->
     <script src="assets/js/jquery.min.js"></script>
@@ -152,4 +164,3 @@
 
 </body>
 </html>
-

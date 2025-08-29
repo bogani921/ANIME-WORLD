@@ -1778,3 +1778,57 @@ input, select, textarea {
 }
 
 
+.episodes-bar {
+    margin-top: 20px;
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 10px;
+    white-space: nowrap;
+    background: rgba(0,0,0,0.7);
+    border-radius: 8px;
+    scrollbar-width: thin;
+}
+
+.episodes-bar a {
+    display: inline-block;
+    padding: 8px 12px;
+    background: #ff4444;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.episodes-bar a:hover {
+    background: #ff7777;
+}
+
+
+/* aumenta lo spazio interno dell'header */
+#header .content .inner {
+    max-height: none;   /* rimuove limite altezza */
+    overflow: visible;  /* assicura che non venga tagliato */
+}
+
+/* sposta più in basso la barra di navigazione */
+#header nav {
+    margin-top: 40px;  /* aggiunge spazio sopra al menu */
+}
+
+
+/* Orologio fisso in alto a sinistra */
+#romeClock {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    z-index: 9999; /* sempre sopra tutto */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}

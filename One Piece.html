@@ -1,86 +1,173 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>One Piece</title>
     <meta charset="utf-8" />
+    <title>One Piece</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
     <!-- CSS principale del template -->
     <link rel="stylesheet" href="assets/css/main.css" />
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
-    <!-- CSS aggiuntivo -->
     <style>
+        /* layout generale */
         .video-wrapper {
             max-width: 900px;
-            margin: 0 auto;
+            margin: 18px auto;
             text-align: center;
         }
+
         .video-container {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%; /* rapporto 16:9 */
+            padding-bottom: 56.25%; /* 16:9 */
             height: 0;
+            overflow: hidden;
+            border-radius: 8px;
         }
         .video-container iframe {
             position: absolute;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
+            border: 0;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+            background: #000;
         }
 
-        /* 🔹 Sfondo personalizzato con overlay */
+        /* sfondo con overlay */
         #bg {
             background: url("images/one_piece_bg.jpg") center center / cover no-repeat;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2; /* resta dietro a tutto */
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+        }
+        #bg::after {
+            content: ""; position: absolute; inset: 0;
+            background: rgba(0,0,0,0.55); z-index: -1;
         }
 
-        #bg::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.55); /* overlay nero semi-trasparente */
-            z-index: -1;
+        /* area numeri episodi */
+        .episode-numbers {
+            display: none;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+            margin: 10px auto;
+            padding: 8px;
+            max-width: 900px;
+            flex-wrap: wrap;
+            background: rgba(0,0,0,0.7);
+            border-radius: 8px;
+        }
+        .episode-numbers.visible {
+            display: flex;
+        }
+
+        .episode-number-btn {
+            min-width: 40px;
+            height: 36px;
+            padding: 0 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
+            color: #fff;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .episode-number-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+        }
+        .episode-number-btn.active {
+            background: #ff9900;
+            color: #111;
+            border-color: #ff9900;
+        }
+
+        /* pulsanti sotto il video */
+        .nav-buttons {
+            margin-top: 12px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+        }
+        .nav-buttons button {
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+        }
+        .nav-buttons .primary {
+            background: #0077cc;
+            color: #fff;
+        }
+        .nav-buttons .secondary {
+            background: #222;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        /* titolo episodio */
+        #episode-title {
+            margin-bottom: 8px;
+            font-size: 20px;
+            letter-spacing: .2px;
+        }
+
+        /* responsive tweaks */
+        @media (max-width:600px) {
+            .episode-number-btn { min-width: 34px; height: 34px; font-size: 13px; }
+            #episode-title { font-size: 18px; }
         }
     </style>
 </head>
 <body class="is-preload">
+      <div id="romeClock">--:--</div>
 
-    <!-- Wrapper -->
     <div id="wrapper">
 
         <!-- Header -->
         <header id="header">
-            <div class="logo">
-                <span class="icon fa-gem"></span>
-            </div>
+            <div class="logo"><span class="icon fa-gem"></span></div>
             <div class="content">
                 <div class="inner">
+
                     <div class="video-wrapper">
-                        <h2 style="margin-bottom: 15px;">ONE PIECE - EP 1 ITA</h2>
-                        <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%;">
-                            <iframe src="https://drive.google.com/file/d/1VyA8MnQQva6SEeOM1m8kgiqest4mcrSR/preview" 
-                                    style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;" 
-                                    allow="autoplay" 
-                                    allowfullscreen>
+                        <!-- Titolo -->
+                        <h2 id="episode-title">ONE PIECE - EP 1 ITA</h2>
+
+                        <!-- NUMERI 1..50 (sopra il video, toggle con pulsante) -->
+                        <div id="episode-numbers" class="episode-numbers" aria-hidden="true" role="list"></div>
+
+                        <!-- Video -->
+                        <div class="video-container" aria-live="polite">
+                            <iframe id="video-frame"
+                                    src="https://drive.google.com/file/d/1VyA8MnQQva6SEeOM1m8kgiqest4mcrSR/preview"
+                                    allow="autoplay; fullscreen"
+                                    title="Video episodio"
+                                    referrerpolicy="no-referrer">
                             </iframe>
                         </div>
 
-                        
+                        <!-- Pulsanti sotto il video (sempre visibili) -->
+                        <div class="nav-buttons" role="toolbar" aria-label="Controlli episodio">
+                            <button id="prev-btn" class="secondary" aria-label="Episodio precedente">◀ Precedente</button>
+                            <button id="toggle-numbers-btn" class="primary" aria-pressed="false" aria-controls="episode-numbers">Episodi</button>
+                            <button id="next-btn" class="secondary" aria-label="Episodio successivo">Successivo ▶</button>
+                        </div>
+
                     </div>
+
                 </div>
             </div>
+
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
@@ -91,33 +178,28 @@
             </nav>
         </header>
 
-        <!-- BG -->
         <div id="bg"></div>
 
-        <!-- Main -->
+        <!-- Main (resto del template) -->
         <div id="main">
-            <!-- Intro -->
             <article id="intro">
                 <h2 class="major">Intro</h2>
                 <span class="image main"><img src="images/pic01.jpg" alt="" /></span>
                 <p>Benvenuto sul mio sito! Qui puoi guardare i miei contenuti video integrati da Google Drive.</p>
             </article>
 
-            <!-- Work -->
             <article id="work">
                 <h2 class="major">Alla Lista</h2>
                 <span class="image main"><img src="images/pic02.jpg" alt="" /></span>
                 <p>Altri progetti e lavori in arrivo...</p>
             </article>
 
-            <!-- About -->
             <article id="about">
                 <h2 class="major">About</h2>
                 <span class="image main"><img src="images/pic03.jpg" alt="" /></span>
                 <p>Questo sito è stato creato con il template HTML5 UP e personalizzato per ospitare video da Google Drive.</p>
             </article>
 
-            <!-- Contact -->
             <article id="contact">
                 <h2 class="major">Contact</h2>
                 <form method="post" action="#">
@@ -149,18 +231,120 @@
             </article>
         </div>
 
-        <!-- Footer -->
         <footer id="footer">
             <p class="copyright">&copy; BON AND <a href="https://html5up.net">COMPANY</a>.</p>
         </footer>
     </div>
 
-    <!-- Scripts -->
+    <!-- script template -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/browser.min.js"></script>
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
 
+    <!-- script episodi -->
+    <script>
+        (function () {
+            const totalEpisodes = 50;
+            const baseLink = 'https://drive.google.com/file/d/1VyA8MnQQva6SEeOM1m8kgiqest4mcrSR/preview';
+            const episodes = Array.from({length: totalEpisodes}, (_, i) => ({
+                num: i + 1,
+                url: baseLink
+            }));
+
+            let currentEp = 1;
+            const frame = document.getElementById('video-frame');
+            const numbersContainer = document.getElementById('episode-numbers');
+            const toggleBtn = document.getElementById('toggle-numbers-btn');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const titleEl = document.getElementById('episode-title');
+
+            // crea i bottoni 1..50
+            function renderEpisodeButtons() {
+                numbersContainer.innerHTML = '';
+                episodes.forEach(ep => {
+                    const b = document.createElement('button');
+                    b.type = 'button';
+                    b.className = 'episode-number-btn';
+                    b.textContent = String(ep.num);
+                    b.setAttribute('aria-label', 'Episodio ' + ep.num);
+                    b.dataset.num = String(ep.num);
+                    b.addEventListener('click', () => {
+                        loadEpisode(ep.num);
+                    });
+                    numbersContainer.appendChild(b);
+                });
+            }
+
+            function loadEpisode(num) {
+                if (num < 1 || num > totalEpisodes) return;
+                currentEp = num;
+                const ep = episodes[num - 1];
+                frame.src = ep.url;
+                titleEl.textContent = `ONE PIECE - EP ${num} ITA`;
+                updateActiveButton();
+                updateNavButtons();
+            }
+
+            function updateActiveButton() {
+                const buttons = numbersContainer.querySelectorAll('.episode-number-btn');
+                buttons.forEach(btn => {
+                    btn.classList.toggle('active', Number(btn.dataset.num) === currentEp);
+                });
+            }
+
+            function updateNavButtons() {
+                prevBtn.disabled = currentEp <= 1;
+                nextBtn.disabled = currentEp >= totalEpisodes;
+            }
+
+            // mostra/nasconde la lista dei numeri
+            toggleBtn.addEventListener('click', () => {
+                const willShow = !numbersContainer.classList.contains('visible');
+                numbersContainer.classList.toggle('visible', willShow);
+                numbersContainer.setAttribute('aria-hidden', String(!willShow));
+                toggleBtn.setAttribute('aria-pressed', String(willShow));
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentEp > 1) loadEpisode(currentEp - 1);
+            });
+            nextBtn.addEventListener('click', () => {
+                if (currentEp < totalEpisodes) loadEpisode(currentEp + 1);
+            });
+
+            // tastiere freccia sin/dx
+            window.addEventListener('keydown', (ev) => {
+                if (ev.key === 'ArrowLeft') {
+                    if (currentEp > 1) loadEpisode(currentEp - 1);
+                } else if (ev.key === 'ArrowRight') {
+                    if (currentEp < totalEpisodes) loadEpisode(currentEp + 1);
+                }
+            });
+
+            // init
+            renderEpisodeButtons();
+            loadEpisode(1);
+        })();
+           ///////////////////orologio 
+
+           function updateRomeTime() {
+    // Ora di Roma
+    const now = new Date();
+    // UTC +1 per Roma (senza considerare ora legale)
+    const options = { timeZone: 'Europe/Rome', hour12: false, hour: '2-digit', minute: '2-digit',  };
+    const romeTime = now.toLocaleTimeString('it-IT', options);
+    
+    document.getElementById('romeClock').textContent = romeTime;
+}
+
+// Aggiorna ogni secondo
+setInterval(updateRomeTime, 1000);
+updateRomeTime();
+
+           
+    </script>
 </body>
 </html>
